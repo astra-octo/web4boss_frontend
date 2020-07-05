@@ -20,11 +20,13 @@ interface IStepsProps {
 
     changeStepCallback?: CallableFunction,
     finishStepCallback?: CallableFunction,
+
+    FinishComponent?: any
 }
 
 const { Step } = AntdSteps;
 
-function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallback, finishStepCallback }: IStepsProps): JSX.Element {
+function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallback, finishStepCallback, FinishComponent }: IStepsProps): JSX.Element {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const hasNextStep = (index: number): boolean => getStepLength + 1 > index;
@@ -84,6 +86,8 @@ function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallb
                         <div key={step.id} className={'steps__step'}>{step.children}</div>
                     ))
                 }
+
+                {FinishComponent && FinishComponent}
 
                 <ButtonGroup>
                     {hasPrevStep(activeIndex) && (

@@ -6,6 +6,8 @@ import './Register.scss';
 import {Steps} from "../Steps";
 import {Link} from "react-router-dom";
 import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../RegisterStep/steps";
+import Notification from "../Notification/Notification";
+import {NotificationTypes} from "../Notification";
 
 
 class Register extends React.Component<null, any> {

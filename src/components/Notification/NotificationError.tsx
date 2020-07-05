@@ -1,9 +1,9 @@
 import React from "react";
 
 import './NotificationError.scss';
-import {Notification} from "./Notification";
+import {Notification} from "./index";
 
-export const NotificationError = (): JSX.Element => (
+export default (): JSX.Element => (
     <Notification>
         Error
     </Notification>

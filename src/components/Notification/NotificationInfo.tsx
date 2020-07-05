@@ -1,9 +1,9 @@
 import React from "react";
 
 import './NotificationInfo.scss';
-import {Notification} from "./Notification";
+import {Notification} from "./index";
 
-export const NotificationInfo = (): JSX.Element => (
+export default (): JSX.Element => (
     <Notification>
         Info
     </Notification>

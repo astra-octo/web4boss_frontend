@@ -1,10 +1,14 @@
 import React from "react";
 
-import './NotificationSuccess.scss.scss';
-import {Notification} from "./Notification";
+import './NotificationSuccess.scss';
+import {Notification} from "./index";
+import {CheckCircleTwoTone} from "@ant-design/icons/lib";
+import Title from "antd/es/typography/Title";
 
-export const NotificationSuccess = (): JSX.Element => (
+export default (props): JSX.Element => (
     <Notification>
-        Info
+        <div className={'notification-success'}>
+
+        </div>
     </Notification>
 )

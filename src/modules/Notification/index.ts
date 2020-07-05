@@ -1,5 +1,5 @@
-export const NotificationTypes = {
-    info: 'info',
-    success: 'success',
-    error: 'error',
+export enum NotificationTypes {
+    info = 'info',
+    success = 'success',
+    error = 'error',
 }

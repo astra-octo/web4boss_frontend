@@ -5,33 +5,36 @@ import {NotificationTypes} from "./index";
 import './Notification.scss';
 
 interface INotificationProps {
-    type: NotificationTypes[string],
-    title: string,
-    subtitle: string,
+    type: any,
+    title?: string,
+    subtitle?: string,
     children?: React.ReactChild | React.ReactChild[]
 }
 
 const components = [
     {
         type: NotificationTypes.info,
-        component: React.lazy(() => import('../../components/Notification').then(component => component.NotificationInfo)),
+        component: React.lazy(() => import('../../components/Notification/NotificationInfo')),
     },
     {
         type: NotificationTypes.success,
-        component: React.lazy(() => import('../../components/Notification').then(component => component.NotificationSuccess)),
+        component: React.lazy(() => import('../../components/Notification/NotificationSuccess')),
     },
     {
         type: NotificationTypes.error,
-        component: React.lazy(() => import('../../components/Notification').then(component => component.NotificationError)),
+        component: React.lazy(() => import('../../components/Notification/NotificationError')),
     }
 ];
 
-export default ({type}: INotificationProps) => {
-    const NotifyComponent = components.filter(component => component.type === type)[0];
+export default ({type, ...props}: INotificationProps) => {
+    console.log(type, props);
 
+    const NotifyComponent = components.filter(component => component.type === type)[0]?.component;
     return (
         <div>
-            <NotifyComponent>jhjh</NotifyComponent>
+            <React.Suspense fallback={'...'}>
+                <NotifyComponent {...props}/>
+            </React.Suspense>
         </div>
     );
 }
