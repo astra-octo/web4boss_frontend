@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../RegisterStep/steps";
 import AuthorizationFabric from '../../libs/Authorization';
 import {
-    BaseAuthorizationService, IBaseAuthorizationSingUpCredentials, IBaseSuccessResponse
+    BaseAuthorizationService, IBaseAuthorizationSignUpCredentials, IBaseSuccessResponse
 } from "../../libs/Authorization/services/BaseAuthorizationService";
 import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
 
@@ -49,7 +49,7 @@ class Register extends React.Component<null, any> {
 
     async handleFinish() {
         const response: IBaseSuccessResponse = await this.authorizationService
-            .singUp(this.state);
+            .SignUp(this.state);
         console.log(response);
     }
 

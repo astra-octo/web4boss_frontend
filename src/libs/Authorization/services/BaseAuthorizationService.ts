@@ -1,6 +1,7 @@
 import {IAuthorizationServiceInterface} from "../AuthorizationService.interface";
+import api from "../../api";
 
-export type IBaseAuthorizationSingUpCredentials = {
+export type IBaseAuthorizationSignUpCredentials = {
     domain: string;
     name: string;
     type: string;
@@ -20,6 +21,12 @@ export type IBaseSuccessResponse = {
 }
 
 export class BaseAuthorizationService implements IAuthorizationServiceInterface {
+    private httpClient;
+
+    constructor() {
+        this.httpClient = api({});
+    }
+
     getToken(): string {
         return "";
     }
@@ -27,14 +34,13 @@ export class BaseAuthorizationService implements IAuthorizationServiceInterface 
     setToken(token: string) {
     }
 
-    singIn(credentials) {
+    SignIn(credentials) {
     }
 
-    singUp<C extends IBaseAuthorizationSingUpCredentials, R extends IBaseSuccessResponse>(credentials: C): Promise<R> {
-        return Promise.resolve<IBaseSuccessResponse & any>({
-            access_token: 'test',
-            refresh_token: 'test2',
-        });
+    SignUp<C extends IBaseAuthorizationSignUpCredentials, R extends IBaseSuccessResponse>(credentials: C): Promise<R> {
+        const url = '/register/';
+
+        return this.httpClient.post(url, credentials);
     }
 
 }
