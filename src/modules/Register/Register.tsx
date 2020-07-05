@@ -19,6 +19,8 @@ class Register extends React.Component<null, any> {
     constructor(props) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFinish = this.handleFinish.bind(this);
     }
 
     handleUpdate(updateFields) {
@@ -27,6 +29,10 @@ class Register extends React.Component<null, any> {
 
     handleSubmit(data) {
         console.log(data);
+    }
+
+    handleFinish() {
+        console.log('Finished');
     }
 
     shouldComponentUpdate(nextProps: Readonly<null>, nextState: Readonly<any>, nextContext: any): boolean {
@@ -75,9 +81,14 @@ class Register extends React.Component<null, any> {
                 <Title level={2}>Регистрация</Title>
                 <Steps
                     steps={steps}
-                    nextBtnText={'next'}
-                    prevBtnText={'prev'}
-                    changeStepCallback={() => (this.setState({changeStep: true}), true)}
+                    nextBtnText={'Продолжить'}
+                    prevBtnText={'Назад'}
+                    finishBtnText={'Создать'}
+                    changeStepCallback={() => {
+                        this.setState({changeStep: true});
+                        return true;
+                    }}
+                    finishStepCallback={this.handleFinish}
                 />
                 <Link to={'/auth'}>Войти</Link>
             </>

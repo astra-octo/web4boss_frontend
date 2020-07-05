@@ -24,7 +24,7 @@ const AccountSchema = Yup.object()
         email: Yup.string().email().required(),
         username: Yup.string().required(),
         password: Yup.string().required(),
-        password_confirmation: Yup.string().oneOf([Yup.ref('password'), null]),
+        password_confirmation: Yup.string().oneOf([Yup.ref('password'), null]).required(),
     });
 
 const callbackEvent = (event, callback: CallableFunction) => {

@@ -3,6 +3,7 @@ import {Button, Steps as AntdSteps} from 'antd';
 import {StepProps} from "antd/lib/steps";
 
 import './Steps.scss';
+import ButtonGroup from "antd/es/button/button-group";
 
 interface IStep {
     id: string|number;
@@ -13,6 +14,7 @@ interface IStep {
 interface IStepsProps {
     nextBtnText: string;
     prevBtnText: string;
+    finishBtnText?: string;
 
     steps: IStep[];
 
@@ -22,7 +24,7 @@ interface IStepsProps {
 
 const { Step } = AntdSteps;
 
-function Steps({ steps, nextBtnText, prevBtnText, changeStepCallback, finishStepCallback }: IStepsProps): JSX.Element {
+function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallback, finishStepCallback }: IStepsProps): JSX.Element {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const hasNextStep = (index: number): boolean => getStepLength + 1 > index;
@@ -30,6 +32,8 @@ function Steps({ steps, nextBtnText, prevBtnText, changeStepCallback, finishStep
 
     const getActiveStepProps = (): object => steps[activeIndex] || {};
     const getStepLength = steps.length - 1;
+    const getIsLastStep = (): boolean => activeIndex === getStepLength;
+    const getNextBtnText = (): string => getIsLastStep() && finishBtnText ? finishBtnText : nextBtnText;
 
     const StepsContext = createContext({});
 
@@ -61,7 +65,7 @@ function Steps({ steps, nextBtnText, prevBtnText, changeStepCallback, finishStep
      * Increase active step index
      */
     const goNextStep = () => changeStep(
-        activeIndex + 1 > getStepLength ? getStepLength : activeIndex + 1
+        activeIndex > getStepLength ? getStepLength : activeIndex + 1
     );
 
     return (
@@ -76,21 +80,23 @@ function Steps({ steps, nextBtnText, prevBtnText, changeStepCallback, finishStep
                 </AntdSteps>
 
                 {steps.filter((_, index) => index === activeIndex)
-                    .map((step, index): JSX.Element => (
+                    .map((step): JSX.Element => (
                         <div key={step.id} className={'steps__step'}>{step.children}</div>
                     ))
                 }
 
-                {hasPrevStep(activeIndex) && (
-                    <Button type={"primary"} onClick={goPrevStep}>{prevBtnText}</Button>
-                )}
+                <ButtonGroup>
+                    {hasPrevStep(activeIndex) && (
+                        <Button type={"dashed"} onClick={goPrevStep} >{prevBtnText}</Button>
+                    )}
 
-                {hasNextStep(activeIndex) && (
-                    <Button type={"primary"} onClick={goNextStep}>{nextBtnText}</Button>
-                )}
+                    {hasNextStep(activeIndex) && (
+                        <Button type={"primary"} onClick={goNextStep}>{getNextBtnText()}</Button>
+                    )}
+                </ButtonGroup>
             </div>
         </StepsContext.Provider>
     );
 }
 
-export default Steps;
+export default React.memo(Steps);
