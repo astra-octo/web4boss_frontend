@@ -33,7 +33,7 @@ const callbackEvent = (event, callback: CallableFunction) => {
     callback({[name]: value});
 };
 
-function RegisterStepPerson({onSubmitCallback, onChangeCallback, values}: IDefaultRegisterStepProps) {
+function RegisterStepPerson({onChangeCallback, values}: IDefaultRegisterStepProps) {
     return (
         <RegisterStep>
             <Formik

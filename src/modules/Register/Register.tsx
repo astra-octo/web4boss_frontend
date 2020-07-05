@@ -5,7 +5,7 @@ import Title from "antd/es/typography/Title";
 import './Register.scss';
 import {Steps} from "../Steps";
 import {Link} from "react-router-dom";
-import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../../components/RegisterStep/steps";
+import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../RegisterStep/steps";
 
 
 class Register extends React.Component<null, any> {

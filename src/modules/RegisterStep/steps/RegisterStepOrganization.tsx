@@ -1,9 +1,8 @@
-import React, {FormEvent, useEffect} from "react";
+import React from "react";
 import {IDefaultRegisterStepProps} from "./index";
 import {Formik} from "formik";
 import {Input, Form, Select} from "formik-antd";
 import * as Yup from 'yup';
-import {Option} from "antd/es/mentions";
 import {RegisterStep} from "../index";
 import {HomeOutlined} from "@ant-design/icons/lib";
 
