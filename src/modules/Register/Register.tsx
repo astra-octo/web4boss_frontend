@@ -55,14 +55,18 @@ class Register extends React.Component<null, any> {
                 props: {
                     title: 'О себе',
                 },
-                children: <RegisterStepPerson/>
+                children: <RegisterStepPerson values={this.state}
+                                              onSubmitCallback={this.handleSubmit}
+                                              onChangeCallback={this.handleUpdate}/>
             },
             {
                 id: 'register-step-account',
                 props: {
                     title: 'Аккаунт',
                 },
-                children: <RegisterStepAccount/>
+                children: <RegisterStepAccount values={this.state}
+                                               onSubmitCallback={this.handleSubmit}
+                                               onChangeCallback={this.handleUpdate}/>
             },
         ]
 
@@ -73,7 +77,7 @@ class Register extends React.Component<null, any> {
                     steps={steps}
                     nextBtnText={'next'}
                     prevBtnText={'prev'}
-                    changeStepCallback={() => this.setState({changeStep: true})}
+                    changeStepCallback={() => (this.setState({changeStep: true}), true)}
                 />
                 <Link to={'/auth'}>Войти</Link>
             </>

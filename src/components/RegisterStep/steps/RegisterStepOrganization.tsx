@@ -38,32 +38,31 @@ const RegisterStepOrganization = ({onChangeCallback, values}: IDefaultRegisterSt
                 initialValues={{...initialFormValues, ...values}}
                 validationSchema={OrganizationSchema}
                 onSubmit={(values => onChangeCallback(values))}
-                children={() => (
-                    <Form layout={"vertical"}
-                          onChange={(event) => callbackEvent(event, onChangeCallback)}>
-                        <Form.Item label={'Доменное имя'} name='domain'>
-                            <Input name='domain'
-                                   prefix={'https://'}
-                                   suffix={'.web4boss.ru'}
-                                   maxLength={12} />
-                        </Form.Item>
-                        <Form.Item label={'Тип организации'} name={'type'}>
-                            <Select suffixIcon={<HomeOutlined />} name={'type'} onSelect={value => {
-                                callbackEvent({
-                                    target: {name: 'type', value,}
-                                }, onChangeCallback);
-                            }}>
-                                <Select.Option key={1} value={'school'}>Школа</Select.Option>
-                                <Select.Option key={2} value={'vuz'}>Вуз</Select.Option>
-                                <Select.Option key={3} value={'info'}>Инфо-бизнес</Select.Option>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item label={'Название организации'} name={'name'}>
-                            <Input name={'name'} max={100}/>
-                        </Form.Item>
-                    </Form>
-                )}
-            />
+            >
+                <Form layout={"vertical"}
+                      onChange={(event) => callbackEvent(event, onChangeCallback)}>
+                    <Form.Item label={'Доменное имя'} name='domain'>
+                        <Input name='domain'
+                               prefix={'https://'}
+                               suffix={'.web4boss.ru'}
+                               maxLength={12} />
+                    </Form.Item>
+                    <Form.Item label={'Тип организации'} name={'type'}>
+                        <Select suffixIcon={<HomeOutlined />} name={'type'} onSelect={value => {
+                            callbackEvent({
+                                target: {name: 'type', value,}
+                            }, onChangeCallback);
+                        }}>
+                            <Select.Option key={1} value={'school'}>Школа</Select.Option>
+                            <Select.Option key={2} value={'vuz'}>Вуз</Select.Option>
+                            <Select.Option key={3} value={'info'}>Инфо-бизнес</Select.Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label={'Название организации'} name={'name'}>
+                        <Input name={'name'} max={100}/>
+                    </Form.Item>
+                </Form>
+            </Formik>
         </RegisterStep>
     );
 };
