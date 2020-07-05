@@ -6,23 +6,37 @@ import './Register.scss';
 import {Steps} from "../Steps";
 import {Link} from "react-router-dom";
 import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../RegisterStep/steps";
-import Notification from "../Notification/Notification";
-import {NotificationTypes} from "../Notification";
-
+import AuthorizationFabric from '../../libs/Authorization';
+import {
+    BaseAuthorizationService, IBaseAuthorizationSingUpCredentials, IBaseSuccessResponse
+} from "../../libs/Authorization/services/BaseAuthorizationService";
+import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
 
 class Register extends React.Component<null, any> {
     state = {
         domain: '',
         name: '',
         type: '',
+
+        first_name: '',
+        last_name: '',
+        second_name: '',
+        phone: '',
+
+        email: '',
+        password: '',
         changeStep: false,
     };
+
+    private authorizationService: IAuthorizationServiceInterface;
 
     constructor(props) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
+
+        this.authorizationService = AuthorizationFabric(new BaseAuthorizationService()).service;
     }
 
     handleUpdate(updateFields) {
@@ -33,8 +47,10 @@ class Register extends React.Component<null, any> {
         console.log(data);
     }
 
-    handleFinish() {
-        console.log('Finished');
+    async handleFinish() {
+        const response: IBaseSuccessResponse = await this.authorizationService
+            .singUp(this.state);
+        console.log(response);
     }
 
     shouldComponentUpdate(nextProps: Readonly<null>, nextState: Readonly<any>, nextContext: any): boolean {
