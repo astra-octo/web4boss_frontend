@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 
 import Title from "antd/es/typography/Title";
 
@@ -11,6 +11,7 @@ import {
     BaseAuthorizationService, IBaseSuccessResponse
 } from "../../libs/Authorization/services/BaseAuthorizationService";
 import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
+import {Alert, Space} from "antd";
 
 class Register extends React.Component<null, any> {
     state = {
@@ -26,6 +27,7 @@ class Register extends React.Component<null, any> {
         email: '',
         password: '',
         changeStep: false,
+        isValid: null,
     };
 
     private authorizationService: IAuthorizationServiceInterface;
@@ -35,8 +37,22 @@ class Register extends React.Component<null, any> {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
+        this.handleValidate =  this.handleValidate.bind(this);
+        this.handleChangeStep = this.handleChangeStep.bind(this);
 
         this.authorizationService = AuthorizationFabric(new BaseAuthorizationService()).service;
+    }
+
+    handleChangeStep() {
+        // if (this.state.isValid) {
+            this.setState({changeStep: true});
+        // }
+        return this.state.isValid;
+    }
+
+    handleValidate(status) {
+        if (this.state.isValid === status) {return;}
+        this.setState({isValid: status});
     }
 
     handleUpdate(updateFields) {
@@ -55,11 +71,10 @@ class Register extends React.Component<null, any> {
 
     shouldComponentUpdate(nextProps: Readonly<null>, nextState: Readonly<any>, nextContext: any): boolean {
 
-        if (nextState.changeStep) {
-            this.setState({changeStep: false})
+        if (nextState.changeStep && (this.state.isValid)) {
+            this.setState({changeStep: false});
             return true;
         }
-
         return false;
     }
 
@@ -71,6 +86,7 @@ class Register extends React.Component<null, any> {
                     title: 'Организация',
                 },
                 children: <RegisterStepOrganization values={this.state}
+                                                    onValidateCallback={this.handleValidate}
                                                     onSubmitCallback={this.handleSubmit}
                                                     onChangeCallback={this.handleUpdate}/>
             },
@@ -80,6 +96,7 @@ class Register extends React.Component<null, any> {
                     title: 'О себе',
                 },
                 children: <RegisterStepPerson values={this.state}
+                                              onValidateCallback={this.handleValidate}
                                               onSubmitCallback={this.handleSubmit}
                                               onChangeCallback={this.handleUpdate}/>
             },
@@ -89,6 +106,7 @@ class Register extends React.Component<null, any> {
                     title: 'Аккаунт',
                 },
                 children: <RegisterStepAccount values={this.state}
+                                               onValidateCallback={this.handleValidate}
                                                onSubmitCallback={this.handleSubmit}
                                                onChangeCallback={this.handleUpdate}/>
             },
@@ -96,19 +114,24 @@ class Register extends React.Component<null, any> {
 
         return (
             <>
-                <Title level={2}>Регистрация</Title>
-                <Steps
-                    steps={steps}
-                    nextBtnText={'Продолжить'}
-                    prevBtnText={'Назад'}
-                    finishBtnText={'Создать'}
-                    changeStepCallback={() => {
-                        this.setState({changeStep: true});
-                        return true;
-                    }}
-                    finishStepCallback={this.handleFinish}
-                />
-                <Link to={'/auth'}>Войти</Link>
+                <Space size={'large'} direction={'vertical'}>
+                    <Title level={2}>Регистрация</Title>
+                    {!this.state.isValid && this.state.isValid !== null && (
+                        <Alert
+                            banner
+                            message={'Пожалуйста убедитесь в правильности заполнения полей'}
+                        />
+                    )}
+                    <Steps
+                        steps={steps}
+                        nextBtnText={'Продолжить'}
+                        prevBtnText={'Назад'}
+                        finishBtnText={'Создать'}
+                        changeStepCallback={this.handleChangeStep}
+                        finishStepCallback={this.handleFinish}
+                    />
+                    <Link to={'/auth'}>Войти</Link>
+                </Space>
             </>
         );
     }

@@ -32,12 +32,14 @@ const callbackEvent = (event, callback: CallableFunction) => {
     callback({[name]: value});
 };
 
-function RegisterStepAccount({onChangeCallback, values}: IDefaultRegisterStepProps) {
+function RegisterStepAccount({onChangeCallback, onValidateCallback, values}: IDefaultRegisterStepProps) {
     return (
         <RegisterStep>
             <Formik
                 initialValues={{...initialFormValues, ...values}}
                 validationSchema={AccountSchema}
+                validate={async (fields) => onValidateCallback(await AccountSchema.isValid(fields))}
+                validateOnMount={true}
                 onSubmit={(values => onChangeCallback(values))}
             >
                 <Form layout={"vertical"}

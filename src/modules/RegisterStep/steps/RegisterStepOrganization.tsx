@@ -30,23 +30,26 @@ const callbackEvent = (event, callback: CallableFunction) => {
     callback({[name]: value});
 };
 
-const RegisterStepOrganization = ({onChangeCallback, values}: IDefaultRegisterStepProps) => {
+const RegisterStepOrganization = ({onChangeCallback, onValidateCallback, values}: IDefaultRegisterStepProps) => {
     return (
         <RegisterStep>
             <Formik
                 initialValues={{...initialFormValues, ...values}}
                 validationSchema={OrganizationSchema}
+                validate={async (fields) => onValidateCallback(await OrganizationSchema.isValid(fields))}
+                validateOnMount={true}
                 onSubmit={(values => onChangeCallback(values))}
             >
                 <Form layout={"vertical"}
+                      onInvalid={(test) => console.log(test)}
                       onChange={(event) => callbackEvent(event, onChangeCallback)}>
-                    <Form.Item label={'Доменное имя'} name='domain'>
+                    <Form.Item label={'Доменное имя'} name='domain' required>
                         <Input name='domain'
                                prefix={'https://'}
                                suffix={'.web4boss.ru'}
                                maxLength={12} />
                     </Form.Item>
-                    <Form.Item label={'Тип организации'} name={'organization_type'}>
+                    <Form.Item label={'Тип организации'} name={'organization_type'} required>
                         <Select suffixIcon={<HomeOutlined />} name={'organization_type'} onSelect={value => {
                             callbackEvent({
                                 target: {name: 'organization_type', value,}
@@ -57,7 +60,7 @@ const RegisterStepOrganization = ({onChangeCallback, values}: IDefaultRegisterSt
                             <Select.Option key={3} value={'info'}>Инфо-бизнес</Select.Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item label={'Название организации'} name={'name'}>
+                    <Form.Item label={'Название организации'} name={'name'} required>
                         <Input name={'name'} max={100}/>
                     </Form.Item>
                 </Form>

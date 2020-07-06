@@ -48,9 +48,15 @@ function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallb
                 return finishStepCallback()
             }
 
-            if (typeof changeStepCallback === 'function' && !changeStepCallback(activeIndex, nextIndex)) {
+            if (
+                typeof changeStepCallback === 'function'
+                && !changeStepCallback(activeIndex, nextIndex)
+                && nextIndex > activeIndex
+            ) {
                 nextIndex = activeIndex;
             }
+
+            console.log(nextIndex, activeIndex);
 
             setActiveIndex(nextIndex);
         }

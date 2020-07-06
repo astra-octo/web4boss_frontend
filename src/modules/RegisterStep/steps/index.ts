@@ -3,6 +3,7 @@ import {FormikValues} from "formik";
 export interface IDefaultRegisterStepProps {
     onChangeCallback: CallableFunction,
     onSubmitCallback: CallableFunction,
+    onValidateCallback?: CallableFunction,
     values: FormikValues
 }
 
