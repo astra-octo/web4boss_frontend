@@ -41,10 +41,11 @@ const RegisterStepOrganization = ({onChangeCallback, onValidateCallback, values}
                 onSubmit={(values => onChangeCallback(values))}
             >
                 <Form layout={"vertical"}
-                      onInvalid={(test) => console.log(test)}
+                      size={'large'}
                       onChange={(event) => callbackEvent(event, onChangeCallback)}>
                     <Form.Item label={'Доменное имя'} name='domain' required>
                         <Input name='domain'
+                               autoComplete={'off'}
                                prefix={'https://'}
                                suffix={'.web4boss.ru'}
                                maxLength={12} />
@@ -61,7 +62,9 @@ const RegisterStepOrganization = ({onChangeCallback, onValidateCallback, values}
                         </Select>
                     </Form.Item>
                     <Form.Item label={'Название организации'} name={'name'} required>
-                        <Input name={'name'} max={100}/>
+                        <Input name={'name'}
+                               autoComplete={'off'}
+                               max={100} />
                     </Form.Item>
                 </Form>
             </Formik>

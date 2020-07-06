@@ -1,0 +1,31 @@
+.steps {
+  width: 100%;
+  text-align: center;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: -170px;
+  }
+
+  &__step {
+    //flex: 2;
+    max-width: 500px;
+  }
+
+  &__navigation {
+     //flex: .5;
+    max-width: 170px;
+    padding: 10px;
+  }
+
+
+  &__controls {
+    //flex: .3;
+    //max-width: 100px;
+
+
+  }
+}

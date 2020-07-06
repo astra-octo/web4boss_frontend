@@ -44,6 +44,7 @@ function RegisterStepPerson({onChangeCallback, onValidateCallback, values}: IDef
                 onSubmit={(values => onChangeCallback(values))}
             >
                 <Form layout={"vertical"}
+                      size={'large'}
                       onChange={(event) => callbackEvent(event, onChangeCallback)}>
                     <Form.Item label={'Имя'} name='first_name' required>
                         <Input name={'first_name'}/>

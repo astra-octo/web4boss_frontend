@@ -11,12 +11,10 @@ interface IRegisterStepProps {
 
 function RegisterStep(props: IRegisterStepProps): JSX.Element {
     return (
-        <WhiteBox className={'register-step'}>
-            <div>
-                <Title type={"secondary"} level={3}>{props.title}</Title>
-                {props.children}
-            </div>
-        </WhiteBox>
+        <div className={'register-step'}>
+            <Title type={"secondary"} level={3}>{props.title}</Title>
+            {props.children}
+        </div>
     );
 }
 

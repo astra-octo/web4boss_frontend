@@ -44,9 +44,9 @@ class Register extends React.Component<null, any> {
     }
 
     handleChangeStep() {
-        // if (this.state.isValid) {
+        if (this.state.isValid) {
             this.setState({changeStep: true});
-        // }
+        }
         return this.state.isValid;
     }
 
@@ -113,26 +113,17 @@ class Register extends React.Component<null, any> {
         ]
 
         return (
-            <>
-                <Space size={'large'} direction={'vertical'}>
-                    <Title level={2}>Регистрация</Title>
-                    {!this.state.isValid && this.state.isValid !== null && (
-                        <Alert
-                            banner
-                            message={'Пожалуйста убедитесь в правильности заполнения полей'}
-                        />
-                    )}
-                    <Steps
-                        steps={steps}
-                        nextBtnText={'Продолжить'}
-                        prevBtnText={'Назад'}
-                        finishBtnText={'Создать'}
-                        changeStepCallback={this.handleChangeStep}
-                        finishStepCallback={this.handleFinish}
-                    />
-                    <Link to={'/auth'}>Войти</Link>
-                </Space>
-            </>
+            <div className={'register-wrapper'}>
+                <Steps
+                    steps={steps}
+                    nextBtnText={'Продолжить'}
+                    prevBtnText={'Назад'}
+                    finishBtnText={'Создать'}
+                    changeStepCallback={this.handleChangeStep}
+                    finishStepCallback={this.handleFinish}
+                />
+                <Link to={'/auth'}>Войти</Link>
+            </div>
         );
     }
 }

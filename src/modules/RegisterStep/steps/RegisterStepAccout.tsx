@@ -43,25 +43,26 @@ function RegisterStepAccount({onChangeCallback, onValidateCallback, values}: IDe
                 onSubmit={(values => onChangeCallback(values))}
             >
                 <Form layout={"vertical"}
+                      size={'large'}
                       onChange={(event) => callbackEvent(event, onChangeCallback)}>
                     <Form.Item label={'E-mail'} name='email' required>
-                        <Input name={'email'} type={'email'}/>
+                        <Input name={'email'} type={'email'} autoComplete={'off'}/>
                     </Form.Item>
 
                     <Form.Item label={'Имя пользователя'} name='username' required>
-                        <Input name={'username'} />
+                        <Input name={'username'} autoComplete={'off'} />
                     </Form.Item>
 
                     <Group>
                         <Row gutter={8}>
                             <Col span={12}>
                                 <Form.Item label={'Пароль'} name='password' required>
-                                    <Input name={'password'} type={'password'}/>
+                                    <Input name={'password'} type={'password'} autoComplete={'off'}/>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
                                 <Form.Item label={'Повторите пароль'} name='password_confirmation' required>
-                                    <Input name={'password_confirmation'} type={'password'}/>
+                                    <Input name={'password_confirmation'} type={'password'} autoComplete={'off'}/>
                                 </Form.Item>
                             </Col>
                         </Row>

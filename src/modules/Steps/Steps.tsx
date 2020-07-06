@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useCallback, useState} from "react";
-import {Button, Steps as AntdSteps} from 'antd';
+import {Button, Space, Steps as AntdSteps} from 'antd';
 import {StepProps} from "antd/lib/steps";
 
 import './Steps.scss';
@@ -44,16 +44,16 @@ function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallb
      */
     const changeStep = useCallback((
         nextIndex => {
-            if (nextIndex > getStepLength && typeof finishStepCallback === 'function') {
-                return finishStepCallback()
-            }
-
             if (
                 typeof changeStepCallback === 'function'
                 && !changeStepCallback(activeIndex, nextIndex)
                 && nextIndex > activeIndex
             ) {
                 nextIndex = activeIndex;
+            }
+
+            if (nextIndex > getStepLength && typeof finishStepCallback === 'function') {
+                return finishStepCallback()
             }
 
             console.log(nextIndex, activeIndex);
@@ -78,33 +78,40 @@ function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallb
 
     return (
         <StepsContext.Provider value={{...getActiveStepProps()}}>
-            <div className={'steps'}>
-                <AntdSteps>
-                    {
-                        steps.map(({props}, index) =>
-                            <Step {...props} key={'asd'} status={index === activeIndex ? 'process' : 'wait'} />
-                        )
-                    }
-                </AntdSteps>
 
-                {steps.filter((_, index) => index === activeIndex)
-                    .map((step): JSX.Element => (
-                        <div key={step.id} className={'steps__step'}>{step.children}</div>
-                    ))
-                }
+            <div className={'steps'}>
+
+                <div className={'steps__content'}>
+                    <AntdSteps direction={"vertical"} size={'small'} className={'steps__navigation'}>
+                        {
+                            steps.map(({props}, index) =>
+                                <Step {...props} key={'asd'} status={index === activeIndex ? 'process' : 'wait'} />
+                            )
+                        }
+                    </AntdSteps>
+
+                    <div>
+                        {steps.filter((_, index) => index === activeIndex)
+                            .map((step): JSX.Element => (
+                                <div key={step.id} className={'steps__step'}>{step.children}</div>
+                            ))
+                        }
+                        <ButtonGroup className={'steps__controls'}>
+                            {hasPrevStep(activeIndex) && (
+                                <Button size={'large'} type={"dashed"} onClick={goPrevStep} >{prevBtnText}</Button>
+                            )}
+
+                            {hasNextStep(activeIndex) && (
+                                <Button size={'large'} type={"primary"} onClick={goNextStep}>{getNextBtnText()}</Button>
+                            )}
+                        </ButtonGroup>
+                    </div>
+                </div>
 
                 {FinishComponent && FinishComponent}
 
-                <ButtonGroup>
-                    {hasPrevStep(activeIndex) && (
-                        <Button type={"dashed"} onClick={goPrevStep} >{prevBtnText}</Button>
-                    )}
-
-                    {hasNextStep(activeIndex) && (
-                        <Button type={"primary"} onClick={goNextStep}>{getNextBtnText()}</Button>
-                    )}
-                </ButtonGroup>
             </div>
+
         </StepsContext.Provider>
     );
 }
