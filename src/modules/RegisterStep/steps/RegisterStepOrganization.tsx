@@ -9,20 +9,20 @@ import {HomeOutlined} from "@ant-design/icons/lib";
 interface IInitialFormValues {
     domain: string;
     name: string;
-    type: string;
+    organization_type: string;
 }
 
 const initialFormValues: IInitialFormValues = {
     domain: '',
     name: '',
-    type: '',
+    organization_type: '',
 }
 
 const OrganizationSchema = Yup.object()
     .shape({
         domain: Yup.string().min(2).max(12).required(),
         name: Yup.string().required(),
-        type: Yup.string().max(100).required(),
+        organization_type: Yup.string().max(100).required(),
     });
 
 const callbackEvent = (event, callback: CallableFunction) => {
@@ -46,10 +46,10 @@ const RegisterStepOrganization = ({onChangeCallback, values}: IDefaultRegisterSt
                                suffix={'.web4boss.ru'}
                                maxLength={12} />
                     </Form.Item>
-                    <Form.Item label={'Тип организации'} name={'type'}>
-                        <Select suffixIcon={<HomeOutlined />} name={'type'} onSelect={value => {
+                    <Form.Item label={'Тип организации'} name={'organization_type'}>
+                        <Select suffixIcon={<HomeOutlined />} name={'organization_type'} onSelect={value => {
                             callbackEvent({
-                                target: {name: 'type', value,}
+                                target: {name: 'organization_type', value,}
                             }, onChangeCallback);
                         }}>
                             <Select.Option key={1} value={'school'}>Школа</Select.Option>

@@ -9,14 +9,14 @@ import {IDefaultRegisterStepProps} from "./index";
 interface IInitialFormValues {
     last_name: string;
     first_name: string;
-    second_name: string;
+    middle_name: string;
     phone: string;
 }
 
 const initialFormValues: IInitialFormValues = {
     last_name: '',
     first_name: '',
-    second_name: '',
+    middle_name: '',
     phone: '',
 }
 
@@ -24,7 +24,7 @@ const PersonSchema = Yup.object()
     .shape({
         first_name: Yup.string().min(2).max(40).required(),
         last_name: Yup.string().min(2).max(40).required(),
-        second_name: Yup.string().min(2).max(40).required(),
+        middle_name: Yup.string().min(2).max(40).required(),
         phone: Yup.string().matches(PhoneRegExp).required(),
     });
 
@@ -51,8 +51,8 @@ function RegisterStepPerson({onChangeCallback, values}: IDefaultRegisterStepProp
                         <Input name={'last_name'}/>
                     </Form.Item>
 
-                    <Form.Item label={'Отчество'} name='second_name' required>
-                        <Input name={'second_name'}/>
+                    <Form.Item label={'Отчество'} name='middle_name' required>
+                        <Input name={'middle_name'}/>
                     </Form.Item>
 
                     <Form.Item label={'Телефон'} name='phone' required>

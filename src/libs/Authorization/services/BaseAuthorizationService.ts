@@ -22,16 +22,21 @@ export type IBaseSuccessResponse = {
 
 export class BaseAuthorizationService implements IAuthorizationServiceInterface {
     private httpClient;
+    private storage: Storage;
+
+    private readonly _ACCESS_TOKEN_STORE_KEY = 'access_token';
 
     constructor() {
         this.httpClient = api({});
+        this.storage = localStorage;
     }
 
     getToken(): string {
-        return "";
+        return this.storage.getItem(this._ACCESS_TOKEN_STORE_KEY);
     }
 
     setToken(token: string) {
+        this.storage.setItem(this._ACCESS_TOKEN_STORE_KEY, token);
     }
 
     SignIn(credentials) {
@@ -39,7 +44,6 @@ export class BaseAuthorizationService implements IAuthorizationServiceInterface 
 
     SignUp<C extends IBaseAuthorizationSignUpCredentials, R extends IBaseSuccessResponse>(credentials: C): Promise<R> {
         const url = '/register/';
-
         return this.httpClient.post(url, credentials);
     }
 

@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../RegisterStep/steps";
 import AuthorizationFabric from '../../libs/Authorization';
 import {
-    BaseAuthorizationService, IBaseAuthorizationSignUpCredentials, IBaseSuccessResponse
+    BaseAuthorizationService, IBaseSuccessResponse
 } from "../../libs/Authorization/services/BaseAuthorizationService";
 import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
 
@@ -16,11 +16,11 @@ class Register extends React.Component<null, any> {
     state = {
         domain: '',
         name: '',
-        type: '',
+        organization_type: '',
 
         first_name: '',
         last_name: '',
-        second_name: '',
+        middle_name: '',
         phone: '',
 
         email: '',
