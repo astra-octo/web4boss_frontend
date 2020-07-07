@@ -1,0 +1,17 @@
+.notification {
+  display: flex;
+  align-items: center;
+
+  max-width: 500px;
+
+  &__title {
+    font-size: .95rem !important;
+    font-weight: 100;
+    margin: 0 !important;
+  }
+
+  svg {
+    width: 35px;
+    height: 35px;
+  }
+}

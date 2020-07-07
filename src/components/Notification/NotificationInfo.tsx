@@ -4,7 +4,9 @@ import './NotificationInfo.scss';
 import {Notification} from "./index";
 
 export default (): JSX.Element => (
-    <Notification>
-        Info
-    </Notification>
+    <div className={'notification__info'}>
+        <Notification>
+            Info
+        </Notification>
+    </div>
 )

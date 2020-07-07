@@ -1,5 +1,1 @@
-export enum NotificationTypes {
-    info = 'info',
-    success = 'success',
-    error = 'error',
-}
+export {default as Notification} from './Notification';

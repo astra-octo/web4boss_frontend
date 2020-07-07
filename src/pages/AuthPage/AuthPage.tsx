@@ -7,6 +7,7 @@ import {Register} from "../../modules/Register";
 import {Login} from "../../modules/Login";
 
 import './AuthPage.scss';
+import {RegisterSuccess} from "../../modules/Register/RegisterSuccess";
 
 function AuthPage() {
     return (
@@ -15,6 +16,7 @@ function AuthPage() {
                 <Switch>
                     <Route exact path={'/auth/'} component={Login} />
                     <Route exact path={'/auth/register'} component={Register} />
+                    <Route exact path={'/auth/register/success'} component={RegisterSuccess} />
                 </Switch>
             </div>
         </AuthLayout>

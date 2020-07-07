@@ -3,7 +3,7 @@ import React from "react";
 import './Register.scss';
 import {Steps} from "../Steps";
 import {Link} from "react-router-dom";
-import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "../RegisterStep/steps";
+import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "./RegisterStep/steps";
 import AuthorizationFabric from '../../libs/Authorization';
 import {
     BaseAuthorizationService, IBaseSuccessResponse
