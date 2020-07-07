@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useCallback, useState} from "react";
-import {Button, Space, Steps as AntdSteps} from 'antd';
+import {Button, Steps as AntdSteps} from 'antd';
 import {StepProps} from "antd/lib/steps";
 
 import './Steps.scss';
@@ -20,13 +20,11 @@ interface IStepsProps {
 
     changeStepCallback?: CallableFunction,
     finishStepCallback?: CallableFunction,
-
-    FinishComponent?: any
 }
 
 const { Step } = AntdSteps;
 
-function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallback, finishStepCallback, FinishComponent }: IStepsProps): JSX.Element {
+function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallback, finishStepCallback }: IStepsProps): JSX.Element {
     const [activeIndex, setActiveIndex] = useState(0);
 
     const hasNextStep = (index: number): boolean => getStepLength + 1 > index;
@@ -55,8 +53,6 @@ function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallb
             if (nextIndex > getStepLength && typeof finishStepCallback === 'function') {
                 return finishStepCallback()
             }
-
-            console.log(nextIndex, activeIndex);
 
             setActiveIndex(nextIndex);
         }
@@ -107,8 +103,6 @@ function Steps({ steps, nextBtnText, prevBtnText, finishBtnText, changeStepCallb
                         </ButtonGroup>
                     </div>
                 </div>
-
-                {FinishComponent && FinishComponent}
 
             </div>
 

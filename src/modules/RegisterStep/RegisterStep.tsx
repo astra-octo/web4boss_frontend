@@ -1,5 +1,4 @@
 import React from "react";
-import {WhiteBox} from "../../components/WhiteBox";
 
 import './RegisterStep.scss';
 import Title from "antd/es/typography/Title";

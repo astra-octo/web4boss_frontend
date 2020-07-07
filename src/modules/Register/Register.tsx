@@ -1,6 +1,4 @@
-import React, {useMemo} from "react";
-
-import Title from "antd/es/typography/Title";
+import React from "react";
 
 import './Register.scss';
 import {Steps} from "../Steps";
@@ -11,7 +9,6 @@ import {
     BaseAuthorizationService, IBaseSuccessResponse
 } from "../../libs/Authorization/services/BaseAuthorizationService";
 import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
-import {Alert, Space} from "antd";
 
 class Register extends React.Component<null, any> {
     state = {
