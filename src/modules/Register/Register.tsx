@@ -2,7 +2,7 @@ import React from "react";
 
 import './Register.scss';
 import {Steps} from "../Steps";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "./RegisterStep/steps";
 import AuthorizationFabric from '../../libs/Authorization';
 import {
@@ -10,7 +10,12 @@ import {
 } from "../../libs/Authorization/services/BaseAuthorizationService";
 import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
 
-class Register extends React.Component<null, any> {
+interface IRegisterProps {
+    redirectOnSuccess: string;
+    history: any;
+}
+
+class Register extends React.Component<any, any> {
     state = {
         domain: '',
         name: '',
@@ -29,7 +34,7 @@ class Register extends React.Component<null, any> {
 
     private authorizationService: IAuthorizationServiceInterface;
 
-    constructor(props) {
+    constructor(props: IRegisterProps) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,9 +66,17 @@ class Register extends React.Component<null, any> {
     }
 
     async handleFinish() {
-        const response: IBaseSuccessResponse = await this.authorizationService
-            .SignUp(this.state);
-        console.log(response);
+        try {
+            const response: IBaseSuccessResponse = await this.authorizationService
+                .SignUp(this.state);
+        } catch (e) {
+            console.log(this.props);
+        }
+
+        if (this.props.hasOwnProperty('history') && this.props.hasOwnProperty('redirectOnSuccess')) {
+            this.props.history.push(this.props.redirectOnSuccess);
+        }
+
     }
 
     shouldComponentUpdate(nextProps: Readonly<null>, nextState: Readonly<any>, nextContext: any): boolean {
@@ -125,4 +138,4 @@ class Register extends React.Component<null, any> {
     }
 }
 
-export default Register;
+export default withRouter(Register);
