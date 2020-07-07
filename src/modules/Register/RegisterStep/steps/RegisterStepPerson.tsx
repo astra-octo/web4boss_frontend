@@ -1,7 +1,7 @@
 import React from "react";
 import RegisterStep from "../RegisterStep";
 import {Form, Input} from "formik-antd";
-import * as Yup from "yup";
+import Yup from '../../../../libs/yup';
 import {PhoneRegExp} from "../../../../libs/constants";
 import {Formik} from "formik";
 import {IDefaultRegisterStepProps} from "./index";

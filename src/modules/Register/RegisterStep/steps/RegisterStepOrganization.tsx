@@ -2,7 +2,7 @@ import React from "react";
 import {IDefaultRegisterStepProps} from "./index";
 import {Formik} from "formik";
 import {Input, Form, Select} from "formik-antd";
-import * as Yup from 'yup';
+import Yup from '../../../../libs/yup';
 import {RegisterStep} from "../index";
 import {HomeOutlined} from "@ant-design/icons/lib";
 
@@ -20,7 +20,10 @@ const initialFormValues: IInitialFormValues = {
 
 const OrganizationSchema = Yup.object()
     .shape({
-        domain: Yup.string().min(2).max(12).required(),
+        domain: Yup.string()
+            .min(2, 'Минимальная длина 2 символа')
+            .max(12, 'Максимальная длина 12 символов')
+            .required('Обязательно для заполнения'),
         name: Yup.string().required(),
         organization_type: Yup.string().max(100).required(),
     });
