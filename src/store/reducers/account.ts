@@ -7,7 +7,14 @@ export const AccountReducer = (state: IAccountState = InitialAccountState, actio
             return {
                 ...state,
                 account: action.payload,
+                isGuest: false,
             };
+        case EAccountActions.LoadAccountFailed:
+            return {
+                ...state,
+                account: null,
+                isGuest: true,
+            }
         default:
             return state;
     }

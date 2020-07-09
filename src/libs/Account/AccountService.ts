@@ -16,6 +16,9 @@ export class AccountService {
 
     loadAccount(): Promise<Account> {
         const url = '/user/profile/';
-        return this._httpClient.get<Account>(url).then(data => data.data);
+        return this._httpClient.get<Account>(url).then(data => data.data).catch((e) => {
+            localStorage.setItem('access_token', '');
+            throw e;
+        });
     }
 }

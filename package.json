@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-transition-group": "^4.4.0",
     "@types/redux-thunk": "^2.1.0",
+    "@types/rx": "^4.1.2",
     "@types/yup": "^0.29.3",
     "antd": "^4.4.0",
     "axios": "^0.19.2",
@@ -31,6 +32,7 @@
     "react-scripts": "3.4.1",
     "react-transition-group": "1.x",
     "redux-thunk": "^2.3.0",
+    "rxjs": "^6.6.0",
     "typescript": "~3.7.2",
     "yup": "^0.29.1"
   },

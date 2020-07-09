@@ -38,14 +38,14 @@ export function AccountLoad() {
 
 export function AccountLoadSuccess(payload: Account) {
     return {
-        type: typeof EAccountActions.LoadAccountSuccess,
+        type: EAccountActions.LoadAccountSuccess,
         payload
     }
 }
 
 export function AccountLoadFailed() {
     return {
-        type: typeof EAccountActions.LoadAccountFailed,
+        type: EAccountActions.LoadAccountFailed,
     }
 }
 

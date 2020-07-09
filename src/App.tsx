@@ -5,16 +5,25 @@ import './App.scss';
 import {AuthPage} from "./pages/AuthPage";
 import {CoreLoadOrganization} from "./store/actions/core";
 import {connect} from "react-redux";
+import {MiddlewareRoute} from "./modules/MiddlewareRoute";
+import {IsAuth, IsGuest} from "./libs/meddlers";
+import {AccountLoad} from "./store/actions/account";
 
-function App({loadOrganization}) {
+function App({loadOrganization, loadAccount}) {
     useEffect(function () {
+        loadAccount();
         loadOrganization();
-    }, [loadOrganization]);
+    }, [loadOrganization, loadAccount]);
 
   return (
     <div className="App">
         <Switch>
-            <Route path={'/auth'} component={AuthPage} />
+            <MiddlewareRoute meddlers={[
+                IsGuest,
+            ]} path={'/auth'} component={AuthPage} />
+            <MiddlewareRoute meddlers={[
+                IsAuth,
+            ]} path={'/app'} component={AppPage} />
         </Switch>
     </div>
   );
@@ -26,6 +35,9 @@ export default connect(
         return {
             loadOrganization: () => {
                 dispatch<any>(CoreLoadOrganization());
+            },
+            loadAccount: () => {
+                dispatch<any>(AccountLoad());
             }
         };
     },

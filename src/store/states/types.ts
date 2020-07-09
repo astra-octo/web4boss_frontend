@@ -1,7 +1,9 @@
 import {ICoreState} from "./core";
+import {IAccountState} from "./account";
 
 export interface IDefaultState {
-    core: ICoreState
+    core: ICoreState,
+    account: IAccountState,
 }
 
 export interface Organization {
