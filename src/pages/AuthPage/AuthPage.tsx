@@ -8,11 +8,19 @@ import {Login} from "../../modules/Login";
 
 import './AuthPage.scss';
 import {RegisterSuccess} from "../../modules/Register/RegisterSuccess";
+import {connect} from "react-redux";
+import {IDefaultState} from "../../store/states/types";
+import {OrganizationLogo} from "../../components/OrganizationLogo";
 
-function AuthPage() {
+function AuthPage({organization}) {
     return (
         <AuthLayout>
             <div className={'auth-wrapper'}>
+                {organization && (
+                    <>
+                        <OrganizationLogo organization={organization}/>
+                    </>
+                )}
                 <Switch>
                     <Route exact path={'/auth/'} component={Login} />
                     <Route exact path={'/auth/register'} component={Register} />
@@ -23,4 +31,10 @@ function AuthPage() {
     )
 }
 
-export default AuthPage;
+export default connect(
+    (state: IDefaultState, ownProps) => {
+        return {
+            organization: state.core.organization,
+        };
+    },
+)(AuthPage);

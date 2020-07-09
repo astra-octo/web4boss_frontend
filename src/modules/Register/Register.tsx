@@ -6,7 +6,7 @@ import {Link, withRouter} from "react-router-dom";
 import {RegisterStepAccount, RegisterStepOrganization, RegisterStepPerson} from "./RegisterStep/steps";
 import AuthorizationFabric from '../../libs/Authorization';
 import {
-    BaseAuthorizationService, IBaseSuccessResponse
+    BaseAuthorizationService
 } from "../../libs/Authorization/services/BaseAuthorizationService";
 import {IAuthorizationServiceInterface} from "../../libs/Authorization/AuthorizationService.interface";
 
@@ -67,14 +67,14 @@ class Register extends React.Component<any, any> {
 
     async handleFinish() {
         try {
-            const response: IBaseSuccessResponse = await this.authorizationService
+            await this.authorizationService
                 .SignUp(this.state);
         } catch (e) {
             console.log(this.props);
         }
 
-        if (this.props.hasOwnProperty('history') && this.props.hasOwnProperty('redirectOnSuccess')) {
-            this.props.history.push(this.props.redirectOnSuccess);
+        if (this.props.hasOwnProperty('history')) {
+            this.props.history.push(this.props.redirectOnSuccess || '/auth/register/success');
         }
 
     }

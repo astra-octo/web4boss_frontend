@@ -1,32 +1,60 @@
-import React from "react";
-import {WhiteBox} from "../../components/WhiteBox";
-import {Button, Divider, Form, Input, Typography} from 'antd';
+import React, {useState} from "react";
+import {Link, useHistory, withRouter} from "react-router-dom";
+import {Alert, Button, Divider, Form, Input} from 'antd';
+
+import AuthorizationFabric from "../../libs/Authorization";
+import {BaseAuthorizationService} from "../../libs/Authorization/services/BaseAuthorizationService";
+import {connect} from "react-redux";
+import {AccountLoad} from '../../store/actions/account';
 
 import './Login.scss';
-import {Link} from "react-router-dom";
 
-const { Title } = Typography;
+const authorizationService = AuthorizationFabric(new BaseAuthorizationService()).service;
 
-function Login(): JSX.Element {
+function Login({loadAccount}): JSX.Element {
+    const [hasError, setHasError] = useState(false)
+    const history = useHistory();
+
+    const onFinish = async (values) => {
+        try {
+            await authorizationService.SignIn(values);
+            setHasError(false);
+            loadAccount();
+            history.push('/')
+        } catch {
+            setHasError(true);
+        }
+    };
+
     return (
-        <WhiteBox className={'login-block'}>
-            <Title level={2}>Войти на сайт</Title>
-            <Form layout={"vertical"} size={"large"}>
-                <Form.Item label={'E-mail'}>
+        <div className={'login-block'}>
+            <Form layout={"vertical"} size={"large"} onFinish={onFinish}>
+                <Form.Item label={'E-mail'} name={'email'}>
                     <Input placeholder="tester@example.com" />
                 </Form.Item>
-                <Form.Item label={'Пароль'}>
+                <Form.Item label={'Пароль'} name={'password'}>
                     <Input placeholder="*******" />
                 </Form.Item>
                 <Form.Item>
-                    <Button type={"primary"} block>Войти</Button>
+                    {hasError && (
+                        <div>
+                            <Alert message="Проверте правильность ввода данных" type="error" />
+                            <br/>
+                        </div>
+                    )}
+                    <Button type={"primary"} htmlType={'submit'} block>Войти</Button>
                 </Form.Item>
             </Form>
             <Divider>Или войти через соц.сети</Divider>
 
             <Link to='/auth/register'>Регистрация</Link>
-        </WhiteBox>
+        </div>
     );
 }
 
-export default Login;
+export default connect(
+    null,
+    dispatch => ({
+        loadAccount: () => dispatch<any>(AccountLoad())
+    })
+)(Login);
