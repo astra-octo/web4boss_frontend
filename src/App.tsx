@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {MiddlewareRoute} from "./modules/MiddlewareRoute";
 import {IsAuth, IsGuest} from "./libs/meddlers";
 import {AccountLoad} from "./store/actions/account";
+import {AppPage} from "./pages/AppPage";
 
 function App({loadOrganization, loadAccount}) {
     useEffect(function () {

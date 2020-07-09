@@ -20,7 +20,7 @@ function Login({loadAccount}): JSX.Element {
             await authorizationService.SignIn(values);
             setHasError(false);
             loadAccount();
-            history.push('/')
+            history.push('/app')
         } catch {
             setHasError(true);
         }

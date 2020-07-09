@@ -1,0 +1,32 @@
+.ant-layout-sider-collapsed {
+  .sidebar__logo {
+
+    .organization-logo {
+      min-width: 100%;
+    }
+
+    img {
+      width: 30px !important;
+      height: 30px;
+    }
+
+    h4 {
+      display: none;
+    }
+  }
+}
+
+.sidebar {
+  &__logo {
+    background-color: #C5CAE9;
+
+    text-align: center;
+
+    padding: 20px 0;
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}

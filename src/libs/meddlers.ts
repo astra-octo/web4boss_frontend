@@ -1,7 +1,7 @@
 import {IDefaultState} from "../store/states/types";
 
 export const IsAuth = (history, state: IDefaultState) => {
-    if (state.account.isGuest) {
+    if (state.account.isLoaded && state.account.isGuest) {
         throw () => history.push('/');
     }
 
@@ -9,8 +9,7 @@ export const IsAuth = (history, state: IDefaultState) => {
 }
 
 export const IsGuest = (history, state: IDefaultState) => {
-    console.log(state.account);
-    if (!state.account.isGuest) {
+    if (state.account.isLoaded && !state.account.isGuest) {
         throw () => history.push('/');
     }
 

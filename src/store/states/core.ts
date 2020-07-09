@@ -1,5 +1,7 @@
+import {Organization} from "./types";
+
 export interface ICoreState {
-    organization: any;
+    organization: Organization;
 }
 
 export const InitialCoreState: ICoreState = {

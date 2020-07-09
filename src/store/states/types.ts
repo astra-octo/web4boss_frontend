@@ -1,6 +1,11 @@
 import {ICoreState} from "./core";
 import {IAccountState} from "./account";
 
+export enum OrganizationTypes {
+    School='school',
+    Info='info',
+}
+
 export interface IDefaultState {
     core: ICoreState,
     account: IAccountState,
@@ -10,6 +15,7 @@ export interface Organization {
     id: number;
     logo_url: string;
     name: string;
+    type: OrganizationTypes;
 }
 
 export interface Account {
